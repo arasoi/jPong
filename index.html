@@ -5,8 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jPong</title>
+    <style>
+        * { padding: 0; margin: 0; }
+        canvas { background: #000; display: block; margin: 0 auto; }
+    </style>
 </head>
+
 <body>
-    <div id="canvas"/> 
+    <canvas id="myCanvas" width="800" height="600"></canvas> <!--Here we switch form a place holder div over to the actual canvas element-->
 </body>
+
+<script src="/src/main.js"></script>
+<script>
+      
+    console.log(document.getElementById("myCanvas"))
+    var game = new jPong(document.getElementById("myCanvas"))  // Here we create a new instance of jPong. 
+    game.init();
+
+
+
+
+</script>
 </html>
