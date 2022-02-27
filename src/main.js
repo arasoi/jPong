@@ -11,7 +11,7 @@ class jPong {
         this.paddle2 = new Paddle(this.canvas,755,200)
         this.scoreBoard1 = new ScoreBoard(this.canvas,350)
         this.scoreBoard2 = new ScoreBoard(this.canvas,420)
-        this.draw()
+        window.requestAnimationFrame(this.draw.bind(this)) // with this we ask that the browser call this function everytime it renders an animation frame. (60 times a second or every 1/16 of a second.)
     }
 
     /* Draw
@@ -35,5 +35,7 @@ class jPong {
         this.scoreBoard1.draw()
         this.scoreBoard2.draw()
 
+        //Rememebr to make the call back at the end of the draw cycle as well or you can fall out of sync and will stop rendering
+        window.requestAnimationFrame(this.draw.bind(this)) 
     }
 }
