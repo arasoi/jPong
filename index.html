@@ -7,7 +7,7 @@
     <title>jPong</title>
     <style>
         * { padding: 0; margin: 0; }
-        canvas { background: #000; display: block; margin: 0 auto; }
+        canvas { background: #eee; display: block; margin: 0 auto; }
     </style>
 </head>
 
@@ -15,17 +15,15 @@
     <canvas id="myCanvas" width="800" height="600"></canvas> <!--Here we switch form a place holder div over to the actual canvas element-->
 </body>
 
-<script src="src/main.js"></script>
-<script src="src/ball.js"></script>
-<script src="src/paddle.js"></script>
+<script src="./src/main.js" type="text/javascript"></script>
+<script src="./src/ball.js" type="text/javascript"></script>
+<script src="./src/paddle.js" type="text/javascript"></script>
+<script src="./src/scoreBoard.js" type="text/javascript"></script>
 <script>
       
     console.log(document.getElementById("myCanvas"))
     var game = new jPong(document.getElementById("myCanvas"))  // Here we create a new instance of jPong. 
     game.init();
-
-
-
 
 </script>
 </html>

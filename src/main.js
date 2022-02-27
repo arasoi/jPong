@@ -9,6 +9,8 @@ class jPong {
         this.ball = new Ball(this.canvas)
         this.paddle1 = new Paddle(this.canvas,25,200)
         this.paddle2 = new Paddle(this.canvas,755,200)
+        this.scoreBoard1 = new ScoreBoard(this.canvas,350)
+        this.scoreBoard2 = new ScoreBoard(this.canvas,420)
         this.draw()
     }
 
@@ -21,7 +23,7 @@ class jPong {
         
         //Draw the court
         this.ctx.fillStyle = 'black';
-        this.ctx.fillRect(10, 10, 150, 100);
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.width);
 
         // Draw the net
         this.ctx.fillStyle = "white"
@@ -30,5 +32,8 @@ class jPong {
         this.ball.draw()
         this.paddle1.draw()
         this.paddle2.draw()
+        this.scoreBoard1.draw()
+        this.scoreBoard2.draw()
+
     }
 }
