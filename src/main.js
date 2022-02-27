@@ -7,6 +7,8 @@ class jPong {
 
     init(){
         this.ball = new Ball(this.canvas)
+        this.paddle1 = new Paddle(this.canvas,25,200)
+        this.paddle2 = new Paddle(this.canvas,755,200)
         this.draw()
     }
 
@@ -26,5 +28,7 @@ class jPong {
         this.ctx.fillRect(400, 0, 2, 600);
 
         this.ball.draw()
+        this.paddle1.draw()
+        this.paddle2.draw()
     }
 }
