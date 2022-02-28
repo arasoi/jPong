@@ -6,12 +6,17 @@ class jPong {
     }
 
     init(){
-        this.ball = new Ball(this.canvas)
-        this.paddle1 = new Paddle(this.canvas,25,200)
-        this.paddle2 = new Paddle(this.canvas,755,200)
-        this.scoreBoard1 = new ScoreBoard(this.canvas,350)
-        this.scoreBoard2 = new ScoreBoard(this.canvas,420)
-        window.requestAnimationFrame(this.draw.bind(this)) // with this we ask that the browser call this function everytime it renders an animation frame. (60 times a second or every 1/16 of a second.)
+        this.ball = new Ball(this.canvas); 
+        // We are starting our first run at creating player objects. Up until this point we did not care much about who was updating the screen 
+        // Now that we need to handle input we have a strong need to know who is updating the screen and what they can update. 
+        // So we  will create a Player class to handle all updates and functions unique to the player. 
+        //
+        // With that in place we can define a Player 1 and a Player 2 setting upo our Epic Battle! :)  
+        this.player1 = new Player(this.canvas, 350,25,200, "w", "s");
+        this.player2 = new Player(this.canvas, 420,755,200, "ArrowUp", "ArrowDown");
+
+        // With this we ask that the browser call this function everytime it renders an animation frame. (60 times a second or every 1/16 of a second.) Letting the browser habdle the Timing for the render for us.
+        window.requestAnimationFrame(this.draw.bind(this)); 
     }
 
     /* Draw
@@ -30,10 +35,8 @@ class jPong {
         this.ctx.fillRect(400, 0, 2, 600);
 
         this.ball.draw()
-        this.paddle1.draw()
-        this.paddle2.draw()
-        this.scoreBoard1.draw()
-        this.scoreBoard2.draw()
+        this.player1.update();
+        this.player2.update();
 
         //Rememebr to make the call back at the end of the draw cycle as well or you can fall out of sync and will stop rendering
         window.requestAnimationFrame(this.draw.bind(this)) 
