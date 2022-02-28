@@ -3,10 +3,12 @@ class jPong {
     constructor(canvas){
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d"); // Here we are setting the conext in which the canvas will function. In this case 2D or with an X,Y coordinate system.
+        this.newGame = true;
+        this.goal = true; 
     }
 
     init(){
-        this.ball = new Ball(this.canvas); 
+         
         // We are starting our first run at creating player objects. Up until this point we did not care much about who was updating the screen 
         // Now that we need to handle input we have a strong need to know who is updating the screen and what they can update. 
         // So we  will create a Player class to handle all updates and functions unique to the player. 
@@ -14,6 +16,13 @@ class jPong {
         // With that in place we can define a Player 1 and a Player 2 setting upo our Epic Battle! :)  
         this.player1 = new Player(this.canvas, 350,25,200, "w", "s");
         this.player2 = new Player(this.canvas, 420,755,200, "ArrowUp", "ArrowDown");
+
+        //Lets create the ball .
+        this.ball = new Ball(this.canvas);
+
+        // Lets listen for Key events at the game level vs the player
+        document.addEventListener("keydown", this.keyDownHandler.bind(this), false); 
+        document.addEventListener("keyup", this.keyUpHandler.bind(this), false);
 
         // With this we ask that the browser call this function everytime it renders an animation frame. (60 times a second or every 1/16 of a second.) Letting the browser habdle the Timing for the render for us.
         window.requestAnimationFrame(this.draw.bind(this)); 
@@ -33,12 +42,41 @@ class jPong {
         // Draw the net
         this.ctx.fillStyle = "white"
         this.ctx.fillRect(400, 0, 2, 600);
+        
+        // Update the balls state 
+        this.ball.update(this.player1.paddle.x,this.player1.paddle.y,this.player2.paddle.x,this.player2.paddle.y)
 
-        this.ball.draw()
+        // If the balls state has been set to goal add to the scoring players score and reset the ball
+        if (this.ball.ballGoal === "right"){
+            this.player1.score += 1;
+            this.player1.scored = true;
+            this.ball.resetBall();
+        }else if (this.ball.ballGoal === "left"){
+            this.player2.score += 1;
+            this.player2.scored = true;
+            this.ball.resetBall();
+        }
+
         this.player1.update();
         this.player2.update();
 
         //Rememebr to make the call back at the end of the draw cycle as well or you can fall out of sync and will stop rendering
         window.requestAnimationFrame(this.draw.bind(this)) 
+    }
+
+    keyDownHandler(e){
+        if(e.key === " " && this.player1.scored){
+            this.ball.dx = 1;
+            this.ball.dy = -1;
+            this.player1.scored = false;
+        }else if (e.key === " " && this.player2.scored){
+            this.ball.dx = -1;
+            this.ball.dy = -1;
+            this.player2.scored = false;
+        }
+    }
+
+    keyUpHandler(e){
+
     }
 }
