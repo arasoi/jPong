@@ -13,5 +13,27 @@ class Paddle {
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
+    update(dir){
+             
+        if(dir === "down"){
+            // Here we set the amount to move the paddle, this is effetivle the speed at which it moves.
+            this.y += 7;  
+            
+            // Here is a simple collision check to make sure we are not moving the paddle outside the bounds of the court
+            if (this.y + this.height > this.canvas.height){
+                this.y = this.canvas.height - this.height;
+            }
 
+        }else if (dir === "up"){
+            // this is the same as above but in reverse. 
+            this.y -= 7;
+
+            // Here is a simple collision check to make sure we are not moving the paddle outside the bounds of the court
+            if (this.y < 0){
+                this.y = 0;
+            }
+        }
+        this.draw();
+    }
+    
 }
