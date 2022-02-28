@@ -5,9 +5,9 @@ class Ball {
         
         
         // The dx value sets the speed that the ball will travel in the x-axis.
-        this.dx = 1;
+        this.dx = 0;
         // The dy value sets the speed in which the ball will travel in the y-axis.
-        this.dy = -1;
+        this.dy = 0;
         // The starting position of the ball. in this case dead center in teh court.
         this.x = this.canvas.width/2-10;
         this.y = this.canvas.height/2;
@@ -16,10 +16,8 @@ class Ball {
         this.ballHeight = 20;
         //We need to define what goal the has hit in order to update the score
         this.ballGoal = "none"
-        this.player1PaddleX = 0
-        this.player2PaddleX = 0
-        this.player1PaddleY = 0
-        this.player2PaddleY = 0
+        this.player1 = null;
+        this.player2 = null;
     }
 
     draw () {
@@ -37,12 +35,7 @@ class Ball {
         this.y += this.dy;
     }
 
-    update(player1PaddleY,player1PaddleX,player2PaddleY, player2PaddleX){
-        this.player1PaddleY = player1PaddleY;
-        this.player2PaddleY = player2PaddleY;
-        this.player1PaddleX = player1PaddleX;
-        this.player2PaddleX = player2PaddleX;
-
+    update(){
         this.draw();
     }
 
@@ -67,29 +60,26 @@ class Ball {
 
     //Check to see if the ball has collided with a paddle.
     checkPaddle(){
-        //console.log("Ball Y Pos: " + this.y)
-        console.log("Paddle Y Pos: " + this.player2PaddleY)
-        console.log("Paddle X Pos: " + this.player2PaddleX)
 
-        if (this.y < this.player1PaddleX + 150 && this.x < this.player1PaddleY){
+        if (this.y  > this.player1.paddle.y && this.y  < this.player1.paddle.y + this.player1.paddle.height && this.x < this.player1.paddle.x){
+             this.dx = -this.dx;
+             this.ctx.fillStyle = "#FF0000";
+             this.ctx.fillRect(this.x, this.y, this.ballWidth, this.ballHeight);             
+        }else if (this.y  > this.player2.paddle.y  && this.y < this.player2.paddle.y + this.player2.paddle.height && this.x > this.player2.paddle.x){
             this.dx = -this.dx;
-        }else if(this.y < this.player2PaddleX + 150 && this.x > this.player2PaddleY){
-            this.dx = -this.dx;
-        }else{
-            this.dx = this.dx;
+            this.ctx.fillStyle = "#FF0000";
+            this.ctx.fillRect(this.x, this.y, this.ballWidth, this.ballHeight);
         }
 
     }
 
-    checkGoal(){
+    checkGoal(){             
         // We need see if the ball has reached one of the bounds. First being the maximum width of the playfield - half the width of the ball to keep it from "sinking" into the right side.
         if(this.x + this.dx < 0){
-            console.log("first true")
             this.ctx.fillStyle = "#FF0000";
             this.ctx.fillRect(this.x, this.y, this.ballWidth, this.ballHeight);
             this.ballGoal = "left";
         }else if (this.x + this.dx > this.canvas.width-this.ballWidth){
-            console.log("second true")
             this.ctx.fillStyle = "#FF0000";
             this.ctx.fillRect(this.x, this.y, this.ballWidth, this.ballHeight);
             this.ballGoal = "right";

@@ -19,6 +19,8 @@ class jPong {
 
         //Lets create the ball .
         this.ball = new Ball(this.canvas);
+        this.ball.player1 = this.player1;
+        this.ball.player2 = this.player2;
 
         // Lets listen for Key events at the game level vs the player
         document.addEventListener("keydown", this.keyDownHandler.bind(this), false); 
@@ -44,7 +46,7 @@ class jPong {
         this.ctx.fillRect(400, 0, 2, 600);
         
         // Update the balls state 
-        this.ball.update(this.player1.paddle.x,this.player1.paddle.y,this.player2.paddle.x,this.player2.paddle.y)
+        this.ball.update()
 
         // If the balls state has been set to goal add to the scoring players score and reset the ball
         if (this.ball.ballGoal === "right"){
@@ -66,13 +68,16 @@ class jPong {
 
     keyDownHandler(e){
         if(e.key === " " && this.player1.scored){
-            this.ball.dx = 1;
-            this.ball.dy = -1;
+            this.ball.dx = 2;
+            this.ball.dy = -2;
             this.player1.scored = false;
         }else if (e.key === " " && this.player2.scored){
-            this.ball.dx = -1;
-            this.ball.dy = -1;
+            this.ball.dx = -2;
+            this.ball.dy = 2;
             this.player2.scored = false;
+        }else if (e.key === " ") {
+            this.ball.dx = -2;
+            this.ball.dy = 2;
         }
     }
 
