@@ -45,9 +45,11 @@ class Player {
                 this.paddle.y = 0;
             }
         }
-
+        this.paddleX = this.paddle.x;
+        this.paddleY = this.paddle.y;
         //Final draw calls after we have updated everything for this player
         this.paddle.draw()
+        this.scoreBoard.score = this.score;
         this.scoreBoard.draw()
     }
 

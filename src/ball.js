@@ -14,6 +14,14 @@ class Ball {
         // Setting the size of the ball in pixels 
         this.ballWidth = 20;
         this.ballHeight = 20;
+        //We need to define what goal the has hit in order to update the score
+        this.ballGoal = "none"
+
+        //Defione the player paddles for collision detection
+        this.player1PaddleX = 0;
+        this.player2PaddleX = 0;
+        this.player1PaddleW = 0;
+        this.player2PaddleW = 0;
     }
 
     draw () {
@@ -25,10 +33,22 @@ class Ball {
         //Time to add the checks to the ball to see if it is coliding with something. Lets start with just the walls of the court for now. 
 
         // We need see if the ball has reached one of the bounds. First being the maximum width of the playfield - half the width of the ball to keep it from "sinking" into the right side.
-        if(this.x + this.dx > this.canvas.width-(this.ballWidth/2) || this.x + this.dx < 0){
-            this.dx = -this.dx; 
+        if(this.x + this.dx < 0){
+            console.log("first true")
             this.ctx.fillStyle = "#FF0000";
             this.ctx.fillRect(this.x, this.y, this.ballWidth, this.ballHeight);
+            this.ballGoal = "left";
+        }else if (this.x + this.dx > this.canvas.width-this.ballWidth){
+            console.log("second true")
+            this.ctx.fillStyle = "#FF0000";
+            this.ctx.fillRect(this.x, this.y, this.ballWidth, this.ballHeight);
+            this.ballGoal = "right";
+        }else if (this.x > this.player1PaddleX && this.x < this.player1PaddleX + this.player2PaddleW){
+            this.dx = -this.dx;
+        }else if (this.x > this.player2PaddleX && this.x < this.player2PaddleX + this.player1PaddleW){
+            this.dx = -this.dx;
+        }else {
+            this.dx = this.dx;
         }
        
         // Same as above we see if the ball has reached one of the bounds. First being the maximum height of the playfield - half the height of the ball to keep it from "sinking" into the bottom.
