@@ -7,6 +7,7 @@ class Player {
         this.scoreBoardPos = scoreBoardPos 
         this.paddleX = paddleX       
         this.paddleY = paddleY
+        this.paddle = null;
         this.upKey = upKey;
         this.downKey = downKey;
         this.upPressed = false;
@@ -26,29 +27,14 @@ class Player {
         
         // Here we will see which button if any have been pressed and update the x,y of the paddle accordingly
         if(this.downPressed) {
-            
-            // Here we set the amount to move the paddle, this is effetivle the speed at which it moves.
-            this.paddle.y += 7;  
-            
-            // Here is a simple collision check to make sure we are not moving the paddle outside the bounds of the court
-            if (this.paddle.y + this.paddle.height > this.canvas.height){
-                this.paddle.y = this.canvas.height - this.paddle.height;
-            }
+            this.paddle.update("down");
         }
         else if(this.upPressed) {
-
-            // this is the same as above but in reverse. 
-            this.paddle.y -= 7;
-
-            // Here is a simple collision check to make sure we are not moving the paddle outside the bounds of the court
-            if (this.paddle.y < 0){
-                this.paddle.y = 0;
-            }
+            this.paddle.update("up");
+        }else {
+            this.paddle.update("draw");
         }
-        this.paddleX = this.paddle.x;
-        this.paddleY = this.paddle.y;
-        //Final draw calls after we have updated everything for this player
-        this.paddle.draw()
+        
         this.scoreBoard.score = this.score;
         this.scoreBoard.draw()
     }

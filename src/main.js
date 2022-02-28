@@ -17,12 +17,8 @@ class jPong {
         this.player1 = new Player(this.canvas, 350,25,200, "w", "s");
         this.player2 = new Player(this.canvas, 420,755,200, "ArrowUp", "ArrowDown");
 
-        //Lets create the ball with player awareness.
+        //Lets create the ball .
         this.ball = new Ball(this.canvas);
-        this.ball.player1PaddleX = this.player1.paddleX
-        this.ball.player2PaddleX = this.player2.paddleX
-        this.ball.player1PaddleW = this.player1.width
-        this.ball.player2PaddleW = this.player2.width
 
         // Lets listen for Key events at the game level vs the player
         document.addEventListener("keydown", this.keyDownHandler.bind(this), false); 
@@ -46,26 +42,19 @@ class jPong {
         // Draw the net
         this.ctx.fillStyle = "white"
         this.ctx.fillRect(400, 0, 2, 600);
+        
+        // Update the balls state 
+        this.ball.update(this.player1.paddle.x,this.player1.paddle.y,this.player2.paddle.x,this.player2.paddle.y)
 
-        this.ball.draw()
-        console.log(this.ball.ballGoal)
-
+        // If the balls state has been set to goal add to the scoring players score and reset the ball
         if (this.ball.ballGoal === "right"){
             this.player1.score += 1;
-            this.ball.ballGoal = "none";
-            this.ball.dx = 0;
-            this.ball.dy = 0;
-            this.ball.x = this.canvas.width/2-10;
-            this.ball.y = this.canvas.height/2;
             this.player1.scored = true;
+            this.ball.resetBall();
         }else if (this.ball.ballGoal === "left"){
             this.player2.score += 1;
-            this.ball.ballGoal = "none";
-            this.ball.dx = 0;
-            this.ball.dy = 0;
-            this.ball.x = this.canvas.width/2-10;
-            this.ball.y = this.canvas.height/2;
             this.player2.scored = true;
+            this.ball.resetBall();
         }
 
         this.player1.update();
