@@ -5,9 +5,9 @@ class Ball {
         
         
         // The dx value sets the speed that the ball will travel in the x-axis.
-        this.dx = 0;
+        this.dx = 1;
         // The dy value sets the speed in which the ball will travel in the y-axis.
-        this.dy = 0;
+        this.dy = 1;
         // The starting position of the ball. in this case dead center in teh court.
         this.x = this.canvas.width/2-10;
         this.y = this.canvas.height/2;
