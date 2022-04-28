@@ -53,10 +53,12 @@ class jPong {
         if (this.ball.ballGoal === "right"){
             this.player1.score += 1;
             this.player1.scored = true;
+            this.inPlay = false;
             this.ball.resetBall();
         }else if (this.ball.ballGoal === "left"){
             this.player2.score += 1;
             this.player2.scored = true;
+            this.inPlay = false;
             this.ball.resetBall();
         }
 
