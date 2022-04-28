@@ -68,16 +68,16 @@ class jPong {
 
     keyDownHandler(e){
         if(e.key === " " && this.player1.scored){
-            this.ball.dx = 2;
-            this.ball.dy = -2;
+            this.ball.dx = 5;
+            this.ball.dy = -5;
             this.player1.scored = false;
         }else if (e.key === " " && this.player2.scored){
-            this.ball.dx = -2;
-            this.ball.dy = 2;
+            this.ball.dx = -5;
+            this.ball.dy = 5;
             this.player2.scored = false;
         }else if (e.key === " ") {
-            this.ball.dx = -2;
-            this.ball.dy = 2;
+            this.ball.dx = -5;
+            this.ball.dy = 5;
         }
     }
 
