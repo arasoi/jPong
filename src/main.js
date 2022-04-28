@@ -4,6 +4,7 @@ class jPong {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d"); // Here we are setting the conext in which the canvas will function. In this case 2D or with an X,Y coordinate system.
         this.newGame = true;
+        this.inPlay = false;
         this.goal = true; 
     }
 
@@ -75,9 +76,10 @@ class jPong {
             this.ball.dx = -5;
             this.ball.dy = 5;
             this.player2.scored = false;
-        }else if (e.key === " ") {
+        }else if (e.key === " " && !this.inPlay) {
             this.ball.dx = -5;
             this.ball.dy = 5;
+            this.inPlay = true
         }
     }
 
